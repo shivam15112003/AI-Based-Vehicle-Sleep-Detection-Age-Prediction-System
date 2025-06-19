@@ -9,6 +9,8 @@ This project is an end-to-end **deep learning + computer vision application** th
 * 🧠 **Dual CNN Models**: Sleep detection (binary classification) and age prediction (multi-class with 95 age labels)
 * 🖼️ **Image-Based Input**: Upload images via GUI for real-time analysis
 * 🧍‍♂️ **Multi-Person Detection**: Detects multiple faces per image and analyzes each one
+* 🔄 **Data Augmentation**: Rotation, zoom, shift, brightness adjustments, and flipping to improve model generalization
+* ⚖️ **Class Balancing**: Supports class weight computation for handling imbalanced datasets
 * 📊 **Performance Metrics**:
 
   * Sleep Detection Accuracy: **97.3%**
@@ -106,3 +108,6 @@ Predicted ages: 24, 35
 
 **Shivam Sharma**
 [GitHub Profile](https://github.com/shivam15112003)
+
+---
+
