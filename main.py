@@ -1,5 +1,3 @@
-# Updated and cleaned-up version of your AI-based sleep detection and age prediction system
-
 import tensorflow as tf
 import numpy as np
 import cv2
