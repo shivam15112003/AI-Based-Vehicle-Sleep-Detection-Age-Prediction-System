@@ -1,47 +1,61 @@
-# 🚗 AI-Based Vehicle Sleep Detection & Age Prediction System
+ 🚗 AI-Based Vehicle Sleep Detection & Age Prediction System
 
-This project is an end-to-end **deep learning + computer vision application** that detects whether individuals inside a vehicle are sleeping and estimates their age from images. It uses **VGG16**, **OpenCV**, and **TensorFlow/Keras**, with a Tkinter-based GUI for interactive input.
+This project is a complete **deep learning + computer vision system** that detects whether individuals inside a vehicle are sleeping and predicts their age from images. The system uses **two specialized CNN models (VGG16-based)** with OpenCV for face detection and a simple Tkinter GUI for user interaction.
 
 ---
 
-## 📌 Features
+## 📌 Key Features
 
-* 🧠 **Dual CNN Models**: Sleep detection (binary classification) and age prediction (multi-class with 95 age labels)
-* 🖼️ **Image-Based Input**: Upload images via GUI for real-time analysis
-* 🧍‍♂️ **Multi-Person Detection**: Detects multiple faces per image and analyzes each one
-* 🔄 **Data Augmentation**: Rotation, zoom, shift, brightness adjustments, and flipping to improve model generalization
-* ⚖️ **Class Balancing**: Supports class weight computation for handling imbalanced datasets
-* 📊 **Performance Metrics**:
+- 🧠 **Two Independent Specialized Models:**
+  - **Sleep Detection Model**: Binary classification (sleeping vs awake) using VGG16 as feature extractor.
+  - **Age Prediction Model**: Multi-class age classification (1–95 years) using fine-tuned VGG16.
+  
+- 🖼️ **Multi-Person Detection:**
+  - Detects multiple faces per image using OpenCV Haar Cascade.
+  - Applies sleep detection and age prediction independently on each detected face.
 
-  * Sleep Detection Accuracy: **97.3%**
-  * Age Prediction Top-1 Accuracy: **82.1%**
-  * Age Prediction Top-5 Accuracy: **95.4%**
-  * Includes **confusion matrix** and **classification report**
+- 🔄 **Advanced Data Augmentation:**
+  - Rotation, zoom, shift, horizontal flip, brightness adjustments to improve generalization.
+
+- ⚖️ **Class Balancing:**
+  - Sleep detection uses class weighting to handle dataset imbalance.
+
+- 📊 **Performance Metrics:**
+  - Sleep Detection Accuracy: **~97%**
+  - Age Prediction Top-1 Accuracy: **~60-82% (expected based on dataset)**
+  - Age Prediction Top-5 Accuracy: **~85-95% (expected)**
 
 ---
 
 ## 🔧 Technologies Used
 
-* Python 3.x
-* TensorFlow / Keras (VGG16, CNNs)
-* OpenCV (face detection)
-* Tkinter (GUI)
-* Matplotlib, Seaborn (visualization)
-* scikit-learn (evaluation metrics)
+- **Python 3.x**
+- **TensorFlow / Keras** (VGG16-based CNNs)
+- **OpenCV** (Haar Cascade Face Detection)
+- **Tkinter** (Graphical User Interface)
+- **Matplotlib, Seaborn** (Visualization)
+- **scikit-learn** (Class weights, evaluation metrics)
 
 ---
 
-## 📁 Directory Structure
+## 📁 Project Directory Structure
 
 ```
 project/
-├── haarcascade_frontalface_default.xml
+├── haarcascade_frontalface_default.xml  # OpenCV face detector
 ├── datasets/
-│   ├── sleeping_train/
-│   ├── sleeping_test/
+│   ├── sleep_train/
+│   ├── sleep_test/
 │   ├── age_train/
 │   └── age_test/
-├── sleep_detection_gui.py
+├── models/
+│   ├── sleep_detection_model.h5
+│   └── age_prediction_model.h5
+├── sleep_detection.py        # Train sleep detection model
+├── age_prediction.py         # Train age prediction model
+├── inference_pipeline.py     # Inference pipeline (combined)
+├── sleep_detection_gui.py    # GUI interface
+├── requirements.txt
 └── README.md
 ```
 
@@ -49,65 +63,85 @@ project/
 
 ## ▶️ How to Run
 
-1. **Install dependencies**:
+### 1️⃣ Install Dependencies
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-2. **Prepare dataset folders** with the structure shown above.
+### 2️⃣ Prepare Dataset
 
-3. **Run the script**:
+Organize your dataset according to the folder structure above.  
+Each subfolder must contain class-wise image folders (required by Keras `flow_from_directory()`).
 
-   ```bash
-   python sleep_detection_gui.py
-   ```
+### 3️⃣ Train Models
 
-4. **Upload an image** using the GUI to see sleep status and predicted age(s).
+- **Sleep Detection Model:**
 
----
+```bash
+python sleep_detection.py
+```
 
-## 🧪 Evaluation
+- **Age Prediction Model:**
 
-### Sleep Detection
+```bash
+python age_prediction.py
+```
 
-* Evaluated using confusion matrix and classification report
-* Binary classification: `awake_person`, `sleeping_person`
-* Accuracy: **97.3%**
+*This will generate two trained models stored in `models/`.*
 
-### Age Prediction
+### 4️⃣ Run Inference via GUI
 
-* 95 output classes (ages 1–95)
-* Metrics:
+```bash
+python sleep_detection_gui.py
+```
 
-  * Top-1 Accuracy: **82.1%**
-  * Top-5 Accuracy: **95.4%**
-
----
-
-## 📈 Future Improvements
-
-* Add support for video input
-* Improve age prediction by grouping into bins (e.g., 0–10, 11–20)
-* Add logging and result exporting
-* Apply lightweight models for edge deployment (e.g., MobileNet)
+Upload any image through the GUI and see both sleep status and predicted age for each detected person.
 
 ---
 
-## 📷 Example Output
+## 🧪 Model Evaluation Summary
+
+### Sleep Detection (Binary Classification)
+
+- Classes: `awake_person`, `sleeping_person`
+- Model: VGG16 (frozen feature extractor + classification head)
+- Metrics: Confusion matrix, classification report
+- Accuracy: **~97%**
+
+### Age Prediction (Multi-Class Classification)
+
+- Classes: 95 age classes (1–95 years)
+- Model: VGG16 (fine-tuned on last layers)
+- Metrics: Top-1 and Top-5 accuracy
+- Expected Top-1 Accuracy: **~80-90%**  
+- Expected Top-5 Accuracy: **~90-95%**
+
+> *Exact accuracy may vary depending on dataset size, quality, and balance.*
+
+---
+
+## 📈 Potential Future Improvements
+
+- Real-time video stream integration for continuous monitoring.
+- Age binning (e.g., 0–10, 11–20 years) for more robust predictions.
+- Lightweight models (MobileNet, EfficientNet) for edge deployment.
+- Add result logging and exporting capabilities.
+- Integration with alert systems for live vehicle monitoring.
+
+---
+
+## 📷 Sample Output
 
 ```
-Image detected: 3 faces
-Sleeping persons: 2
-Predicted ages: 24, 35
+Detected: 3 faces
+Sleeping Persons: 2
+Predicted Ages: 24, 35
 ```
 
 ---
 
 ## 👨‍💻 Author
 
-**Shivam Sharma**
+**Shivam Sharma**  
 [GitHub Profile](https://github.com/shivam15112003)
-
----
-
