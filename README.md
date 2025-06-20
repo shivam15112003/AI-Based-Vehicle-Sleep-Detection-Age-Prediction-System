@@ -22,7 +22,7 @@ This project is a complete **deep learning + computer vision system** that detec
 
 - 📊 **Performance Metrics:**
   - Sleep Detection Accuracy: **~97%**
-  - Age Prediction Top-1 Accuracy: **~60-82% (expected based on dataset)**
+  - Age Prediction Top-1 Accuracy: **~80-90% (expected based on dataset)**
   - Age Prediction Top-5 Accuracy: **~85-95% (expected)**
 
 ---
