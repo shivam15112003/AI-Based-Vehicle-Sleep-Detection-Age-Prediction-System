@@ -1,4 +1,4 @@
- 🚗 AI-Based Vehicle Sleep Detection & Age Prediction System
+## 🚗 AI-Based Vehicle Sleep Detection & Age Prediction System
 
 This project is a complete **deep learning + computer vision system** that detects whether individuals inside a vehicle are sleeping and predicts their age from images. The system uses **two specialized CNN models (VGG16-based)** with OpenCV for face detection and a simple Tkinter GUI for user interaction.
 
